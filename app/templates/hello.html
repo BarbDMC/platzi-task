@@ -1,0 +1,48 @@
+
+<!--se hereda la base con el siguiente comando-->
+{% extends 'base.html'%}
+{%import 'macros.html' as macros %}
+<!--Para importar estilos para wtf con bootstrap: -->
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block title%}
+    {{ super() }}
+    Bienvenido
+{% endblock %}
+
+<!-- super() hereda de la clase
+y escribe Bienvenido después de lo
+heredado en este caso:
+Flask Platzi | Bienvenido-->
+
+
+{% block content %}
+
+    {% if username %}
+        <h1>Bienvenido/a, {{ username | capitalize }}</h1>
+        <!--Se usa capitaliza para poner filtro, en este caso mayúscula la 1era letra-->
+    {% endif %}
+    <!--  corchetes con % representa una estructura de control -->
+    {% if user_ip %}
+    <h1>Hello World Platzi, tu IP es {{ user_ip }}</h1>
+    {% else %}
+    <a href="{{ url_for('index') }}">Ir al inicio</a> <!--Función que sirve para entrar una ruta solo mandando su nombre-->
+    {% endif %} <!--Todas las estructuras de control deben tener un fin-->
+
+    <div class="container">
+        <h2>Crea una nueva tarea</h2>
+        {{ wtf.quick_form(todo_form)}}
+    </div>
+    <!-- ciclo For -->
+    <ul class="list-group">
+        {% for todo in todos %}
+            {{macros.render_todo(todo, delete_form, update_form)}}
+        {% endfor %}
+      </ul>
+
+
+
+    <!-- La síntaxis para usar variables en Jinja 2 es
+    usar doble corchete y el nombre de la variable--> 
+{% endblock %}
+    
