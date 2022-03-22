@@ -31,7 +31,7 @@ def login():
 
                 flash('Bienvenido de nuevo')
 
-                redirect(url_for('hello'))
+                redirect(url_for('dashboard'))
             else:
                 flash('La información no coincide')
         else:
@@ -68,7 +68,7 @@ def signup():
 
             flash('Bienvenido')
 
-            return redirect(url_for('hello'))
+            return redirect(url_for('dashboard'))
 
         else:
             flash('El usuario ya existe')

@@ -1,7 +1,39 @@
+body {
+    margin: 0;
+}
+
 html{
-    font-family: sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 img {
     max-width: 30px;
+}
+
+.top-space {
+    margin-top: 40px;
+}
+
+.left-space {
+    margin-left: 20px;
+}
+
+.bottom-space {
+    margin-bottom: 40px;
+}
+
+.col {
+    margin-top: 25px;
+}
+
+.list-group-item{
+    display: inline-flex;
+}
+
+.badge {
+    margin: 0px 20px 15px 2px;
+}
+
+ul > li > form:nth-child(2) {
+    margin: 0px 20px 0px 1000px;
 }

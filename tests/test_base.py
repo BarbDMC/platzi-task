@@ -22,17 +22,17 @@ class MainTest(TestCase):
     def test_index_redirects(self):
         response = self.client.get(url_for('index'))
 
-        self.assertRedirects(response, url_for('hello'))
+        self.assertRedirects(response, url_for('dashboard'))
     #verifica que el index redirige a hello
 
-    def test_hello_get(self):
-        response = self.client.get(url_for('hello'))
+    def test_dashboard_get(self):
+        response = self.client.get(url_for('dashboard'))
 
         self.assert200(response)
     #verifica que hello devuelva un 200 cuando se hace un GET
 
-    def test_hello_post(self):
-        response = self.client.post(url_for('hello'))
+    def test_dashboard_post(self):
+        response = self.client.post(url_for('dashboard'))
 
         self.assertTrue(response.status_code,405)
 
