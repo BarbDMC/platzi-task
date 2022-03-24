@@ -18,7 +18,11 @@ It's a to-do list web app that allows creating tasks with a basic login system. 
 
 ## For use firestore
 
-* 
+* Create a [firestore database](https://console.firebase.google.com) with a users collection.
+* In firebase console go to: Project settings -> Service accounts -> Firebase Admin SDK.
+* Download your crediantials service account selecting *'Generate new private key'*.
+* Set GOOGLE_APPLICATION_CREDENTIALS environment variable with the path of your credential json file, example:<br>
+`set GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"`
 
 <br>
 
