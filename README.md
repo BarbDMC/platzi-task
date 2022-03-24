@@ -11,8 +11,8 @@ It's a to-do list web app that allows creating tasks with a basic login system. 
 * Activate the enviroment with command: `source venv/bin/activate`
 * For deactivate run: `deactivate`
 * Install dependencies with: `pip install -r requirements.txt`
-* Set flask app running: `set FLASK_APP=main.py`
-* For debugging mode: `set FLASK_ENV=development`
+* Set flask app running: `export FLASK_APP=main.py`
+* For debugging mode: `export FLASK_ENV=development`
 
 <br>
 
@@ -22,7 +22,7 @@ It's a to-do list web app that allows creating tasks with a basic login system. 
 * In firebase console go to: Project settings -> Service accounts -> Firebase Admin SDK.
 * Download your crediantials service account selecting *'Generate new private key'*.
 * Set GOOGLE_APPLICATION_CREDENTIALS environment variable with the path of your credential json file,<br>
-  example: `set GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"`
+  example: `export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"`
 
 <br>
 
