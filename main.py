@@ -3,7 +3,7 @@ from flask import Flask, request, make_response, redirect, render_template, sess
 from flask_login import login_required, current_user
 from app import create_app
 from app.forms import LoginForm, TodoForm, DeleteForm, UpdateTodoForm, UpdateTodoDoneForm
-from app.firestore_service import get_users, get_todos, put_todo, delete_todo, update_todo, update_todo_done
+from app.firestore_service import get_users, get_todos, put_todo, delete_todo, update_todo, update_todo_to_done
 
 app = create_app()
 
@@ -25,10 +25,7 @@ def server_error(error):
 
 @app.route('/')
 def index():
-    user_ip = request.remote_addr
-
     response = make_response(redirect('/dashboard'))
-    session['user_ip'] = user_ip
 
     return response
 
@@ -37,20 +34,18 @@ def index():
 @login_required
 
 def dashboard():
-    user_ip = session.get('user_ip')
     username = current_user.id
     todo_form = TodoForm()
     delete_form = DeleteForm()
-    update_todo =  UpdateTodoForm()
+    update_todo_form =  UpdateTodoForm()
     update_todo_done_form = UpdateTodoDoneForm()
 
     context = {
-        'user_ip': user_ip,
         'todos': get_todos(user_id=username),
         'username': username,
         'todo_form': todo_form,
         'delete_form': delete_form,
-        'update_todo': update_todo,
+        'update_todo': update_todo_form,
         'update_todo_done_form': update_todo_done_form
     }
 
@@ -70,17 +65,21 @@ def delete(todo_id):
 
     return redirect(url_for('dashboard'))
 
-@app.route('/todos/update_todo/<todo_id>/<string:description>',  methods=['POST'])
-def update_todo(todo_id, description):
+@app.route('/todos/update_todo/<todo_id>/<description>',  methods=['POST'])
+def update(todo_id, description):
     user_id = current_user.id
-    update_todo(user_id= user_id, todo_id= todo_id, description= description)
+    update_todo_form =  UpdateTodoForm()
 
-    return redirect(url_for('dashboard'))
+    if update_todo_form.validate_on_submit():
+        update_todo(user_id= user_id, todo_id= todo_id, description= update_todo_form.description.data)
+        flash('Tarea actualizada con éxito')
+        return redirect(url_for('dashboard'))
+
 
 
 @app.route('/todos/update_done/<todo_id>/<int:done>',  methods=['POST'])
 def update_todo_done(todo_id, done):
     user_id = current_user.id
-    update_todo_done(user_id= user_id, todo_id= todo_id, done= done)
+    update_todo_to_done(user_id= user_id, todo_id= todo_id, done= done)
 
     return redirect(url_for('dashboard'))

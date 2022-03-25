@@ -10,7 +10,7 @@
           </span>
           Descripción: {{todo.to_dict().description}}
 
-          {{ wtf.quick_form(update_todo, action= url_for('update_todo', todo_id = todo.id, description = todo.description ))}}
+          {{ wtf.quick_form(update_todo, action= url_for('update', todo_id = todo.id, description = todo.to_dict().description ))}}
           {{ wtf.quick_form(update_todo_done_form, action= url_for('update_todo_done', todo_id = todo.id,done = todo.to_dict().done ))}}
           {{ wtf.quick_form(delete_form, action= url_for('delete', todo_id = todo.id))}}
 {%endmacro%}
