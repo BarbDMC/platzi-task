@@ -1,8 +1,6 @@
-<!--Sintaxis para crear un macro-->
 {% import 'bootstrap/wtf.html' as wtf%}
 
-{% macro render_todo(todo, delete_form, update_form) %}
-        <li class="list-group-item">
+{% macro render_todo(todo, delete_form, update_todo, update_todo_done_form) %}
           <span class="badge">
             {%if todo.to_dict().done %}
                 Done
@@ -12,9 +10,8 @@
           </span>
           Descripción: {{todo.to_dict().description}}
 
+          {{ wtf.quick_form(update_todo, action= url_for('update_todo', todo_id = todo.id, description = todo.description ))}}
+          {{ wtf.quick_form(update_todo_done_form, action= url_for('update_todo_done', todo_id = todo.id,done = todo.to_dict().done ))}}
           {{ wtf.quick_form(delete_form, action= url_for('delete', todo_id = todo.id))}}
-          {{ wtf.quick_form(update_form, action= url_for('update', todo_id = todo.id,done = todo.to_dict().done ))}}
-
-        </li>
 {%endmacro%}
 

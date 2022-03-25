@@ -10,12 +10,14 @@ class LoginForm(FlaskForm):
 
 class TodoForm(FlaskForm):
     description = StringField('Descripción', validators=[DataRequired()], render_kw={"placeholder": "Crea una nueva tarea"})
-
-class submitButton(FlaskForm):
-    submit = SubmitField('Crear')
+    submit = SubmitField('Crear')    
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Borrar')
 
 class UpdateTodoForm(FlaskForm):
+    description = StringField('', validators=[DataRequired()], render_kw={"placeholder": "nueva descripción"})
     submit = SubmitField('Actualizar')
+
+class UpdateTodoDoneForm(FlaskForm):
+    submit = SubmitField('Terminado')

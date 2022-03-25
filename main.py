@@ -2,12 +2,10 @@ import unittest
 from flask import Flask, request, make_response, redirect, render_template, session, url_for, flash
 from flask_login import login_required, current_user
 from app import create_app
-from app.forms import LoginForm, TodoForm, submitButton, DeleteForm, UpdateTodoForm
-from app.firestore_service import get_users,get_todos,put_todo,delete_todo, update_todo
+from app.forms import LoginForm, TodoForm, DeleteForm, UpdateTodoForm, UpdateTodoDoneForm
+from app.firestore_service import get_users, get_todos, put_todo, delete_todo, update_todo, update_todo_done
 
 app = create_app()
-
-
 
 @app.cli.command()
 def test():
@@ -42,18 +40,18 @@ def dashboard():
     user_ip = session.get('user_ip')
     username = current_user.id
     todo_form = TodoForm()
-    submit_button = submitButton()
-    delete_form= DeleteForm()
-    update_form = UpdateTodoForm()
+    delete_form = DeleteForm()
+    update_todo =  UpdateTodoForm()
+    update_todo_done_form = UpdateTodoDoneForm()
 
     context = {
         'user_ip': user_ip,
         'todos': get_todos(user_id=username),
         'username': username,
         'todo_form': todo_form,
-        'submit_button': submit_button,
         'delete_form': delete_form,
-        'update_form': update_form
+        'update_todo': update_todo,
+        'update_todo_done_form': update_todo_done_form
     }
 
     if todo_form.validate_on_submit():
@@ -72,9 +70,17 @@ def delete(todo_id):
 
     return redirect(url_for('dashboard'))
 
-@app.route('/todos/update/<todo_id>/<int:done>',  methods=['POST'])
-def update(todo_id, done):
+@app.route('/todos/update_todo/<todo_id>/<string:description>',  methods=['POST'])
+def update_todo(todo_id, description):
     user_id = current_user.id
-    update_todo(user_id= user_id, todo_id= todo_id, done= done)
+    update_todo(user_id= user_id, todo_id= todo_id, description= description)
+
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/todos/update_done/<todo_id>/<int:done>',  methods=['POST'])
+def update_todo_done(todo_id, done):
+    user_id = current_user.id
+    update_todo_done(user_id= user_id, todo_id= todo_id, done= done)
 
     return redirect(url_for('dashboard'))

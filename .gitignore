@@ -1,0 +1,10 @@
+/__pycache__/
+!**/app/__pycache__/**
+
+app/__pycache__/__init__.cpython-38.pyc
+app/__pycache__/config.cpython-38.pyc
+app/__pycache__/firestore_service.cpython-38.pyc
+app/__pycache__/forms.cpython-38.pyc
+app/__pycache__/models.cpython-38.pyc
+app/auth/__pycache__/__init__.cpython-38.pyc
+app/auth/__pycache__/views.cpython-38.pyc
